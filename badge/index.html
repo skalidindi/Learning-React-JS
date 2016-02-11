@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+   <head>
+      <!-- core library to define componenet -->
+      <script src="https://fb.me/react-0.14.7.js"></script>
+
+      <!-- used to render component into the dom -->
+      <script src="https://fb.me/react-dom-0.14.7.js"></script>
+      <script src=
+      "https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js">
+      </script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+   </head>
+   <body>
+      <div id="container">
+
+      </div>
+   </body>
+   <script type="text/jsx">
+      // define a react component class (blueprint or cookie cutter)
+      // class must always have a render method
+      var Badge = React.createClass({
+         // render method must return jsx
+         render: function() {
+            return <button className="btn btn-primary" type="button">
+              {this.props.title} <span className="badge">{this.props.number}</span>
+            </button>;
+         }
+      });
+
+      var options = {
+         title: 'Sent',
+         number: 32
+      };
+
+      // act react to render this class (instantiated class)
+      var element = React.createElement(Badge, options);
+
+      // when we ask react to render this class, we will tell it
+      // where to place the rendered element in the dom
+      ReactDOM.render(element, document.getElementById('container'))
+   </script>
+</html>
