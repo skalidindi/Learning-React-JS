@@ -14,7 +14,11 @@
    </head>
    <body>
       <div id="container">
+         <div class="row">
+            <div class="col-sm-4 target">
 
+            </div>
+         </div>
       </div>
    </body>
    <script type="text/jsx">
@@ -22,25 +26,42 @@
       // class must always have a render method
       var Badge = React.createClass({
          // render method must return jsx
-         // Note we are using className in the jsx and a not css class
-         // tag because class can refer to jsx components
          render: function() {
             return <button className="btn btn-primary" type="button">
-              {this.props.title} <span className="badge">{this.props.number}</span>
+              {this.props.title}
+              <span className="badge">{this.props.number}</span>
             </button>;
          }
       });
 
+      var Thumbnail = React.createClass({
+         render: function() {
+            return <div className="thumbnail">
+               <img src={this.props.imageUrl} alt="thumbnail-icon"/>
+               <div className="caption">
+                 <h3>{this.props.header}</h3>
+                 <p>{this.props.description}</p>
+                 <p>
+                     <Badge title={this.props.title} number={this.props.number}/>
+                 </p>
+               </div>
+             </div>;
+         }
+      })
+
       var options = {
-         title: 'Sent',
-         number: 32
+         title: 'See Tutorials',
+         number: 32,
+         header: 'Learn React',
+         description: 'React is a fantastic new library for making fast, dynamic pages.',
+         imageUrl: 'http://formatjs.io/img/react.svg'
       };
 
       // act react to render this class (instantiated class)
-      var element = React.createElement(Badge, options);
+      var element = React.createElement(Thumbnail, options);
 
       // when we ask react to render this class, we will tell it
       // where to place the rendered element in the dom
-      ReactDOM.render(element, document.getElementById('container'))
+      ReactDOM.render(element, document.querySelector('.target'))
    </script>
 </html>

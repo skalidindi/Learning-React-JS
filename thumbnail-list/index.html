@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+   <head>
+      <!-- core library to define componenet -->
+      <script src="https://fb.me/react-0.14.7.js"></script>
+
+      <!-- used to render component into the dom -->
+      <script src="https://fb.me/react-dom-0.14.7.js"></script>
+      <script src=
+      "https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js">
+      </script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+   </head>
+   <body>
+      <div class="container">
+      </div>
+   </body>
+   <script type="text/jsx">
+      // define a react component class (blueprint or cookie cutter)
+      // class must always have a render method
+      var Badge = React.createClass({
+         // render method must return jsx
+         render: function() {
+            return <button className="btn btn-primary" type="button">
+              {this.props.title}
+              <span className="badge">{this.props.number}</span>
+            </button>;
+         }
+      });
+
+      var Thumbnail = React.createClass({
+         render: function() {
+            return <div className="col-sm-6 col-md-4">
+               <div className="thumbnail">
+                  <img src={this.props.imageUrl} alt="thumbnail-icon"/>
+                  <div className="caption">
+                    <h3>{this.props.header}</h3>
+                    <p>{this.props.description}</p>
+                    <p>
+                        <Badge title={this.props.title} number={this.props.number}/>
+                    </p>
+                  </div>
+                </div>
+             </div>;
+         }
+      });
+
+      var ThumbnailList = React.createClass({
+         render: function() {
+            var list = this.props.thumbnailData.map(function(thumbnailProps) {
+               return <Thumbnail {...thumbnailProps} />
+            });
+
+            return <div>
+               {list}
+            </div>;
+         }
+      });
+
+      var options = {
+         thumbnailData: [
+            {
+               title: 'Show Courses',
+               number: 32,
+               header: 'Learn React',
+               description: 'React is a fantastic new library for rendering web pages.',
+               imageUrl: 'http://formatjs.io/img/react.svg'
+            },
+            {
+               title: 'Show Courses',
+               number: 25,
+               header: 'Learn Gulp',
+               description: 'Gulp will help you speed up your development workflow.',
+               imageUrl: 'http://brunch.io/images/others/gulp.png'
+            }
+         ]
+      };
+
+      // act react to render this class (instantiated class)
+      var element = React.createElement(ThumbnailList, options);
+
+      // when we ask react to render this class, we will tell it
+      // where to place the rendered element in the dom
+      ReactDOM.render(element, document.querySelector('.container'))
+   </script>
+</html>
