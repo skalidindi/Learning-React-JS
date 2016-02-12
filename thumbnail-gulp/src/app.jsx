@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ThumbnailList from './thumbnail-list';
-import 'expose?$!expose?jQuery!jquery';
-import 'expose?React!react';
-import 'bootstrap-loader'
+import '../index.html';
 
 var options = {
    thumbnailData: [
