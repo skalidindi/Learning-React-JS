@@ -4,9 +4,10 @@
 import React from 'react';
 
 class ListItem extends React.Component {
-   render() {
-      return <li><a>{this.props.item}</a></li>;
-   }
+  render() {
+    return <li><a>{this.props.item}</a></li>;
+  }
 }
 
+ListItem.propTypes = { item: React.PropTypes.string };
 export default ListItem;

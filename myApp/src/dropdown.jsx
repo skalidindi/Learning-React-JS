@@ -7,35 +7,39 @@ import ListItem from './list-item'
 
 class Dropdown extends React.Component {
 
-   // on es5 this is instead a method getInitialState
-   constructor(props) {
-      super(props);
-      this.state = {
-         open: false
-      };
-   };
+  // on es5 this is instead a method getInitialState
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+  }
 
-   handleClick = () => {
-      this.setState({open: !this.state.open});
-   };
+  handleClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
 
-   render() {
-      let list = this.props.items.map(function(item, i) {
-         return <ListItem item={item} key={i}/>
-      });
+  render() {
+    const list = this.props.items.map(
+      (item, i) => <ListItem item={item} key={i}/>);
+    const defaultDropmenuClass = 'dropdown-menu ';
 
-      return <div className="dropdown">
-         <Button
-            whenClicked={this.handleClick}
-            className="btn-default"
-            title={this.props.title}
-            subTitleClassName="caret"/>
-         <ul className={"dropdown-menu " + (this.state.open ? "vagina" : "penis")}>
-            {list}
-         </ul>
+    return (
+      <div className="dropdown">
+        <Button whenClicked={this.handleClick}
+          className="btn-default" title={this.props.title}
+          subTitleClassName="caret"
+        />
+        <ul className={defaultDropmenuClass +
+          (this.state.open ? 'show' : '')}
+        > {list}
+        </ul>
       </div>
-
-   };
+    );
+  }
 }
 
+Dropdown.propTypes = { items: React.PropTypes.array, title: React.PropTypes.string };
 export default Dropdown;

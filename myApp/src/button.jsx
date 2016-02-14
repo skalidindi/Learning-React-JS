@@ -4,20 +4,22 @@
 import React from 'react';
 
 class Button extends React.Component {
-   render() {
-      return <button
-               onClick={this.props.whenClicked}
-               className={"btn " + this.props.className}
-               type="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="true">
-                  {this.props.title}
-               <span className={this.props.subTitleClassName}>
-                  {this.props.subTitle}
-               </span>
-             </button>
-   }
+
+  render() {
+    const defaultBtnClass = 'btn ';
+
+    return (<button onClick={this.props.whenClicked}
+      className={defaultBtnClass + this.props.className} type="button"
+    >
+      {this.props.title}
+      <span className={this.props.subTitleClassName}>
+        {this.props.subTitle}
+      </span>
+    </button>);
+  }
 }
 
+Button.propTypes = { whenClicked: React.PropTypes.func,
+  className: React.PropTypes.string, subTitleClassName: React.PropTypes.string,
+  title: React.PropTypes.string, subTitle: React.PropTypes.string };
 export default Button;

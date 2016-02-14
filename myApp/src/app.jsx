@@ -1,6 +1,6 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ThumbnailList from './thumbnail-list';
 import Dropdown from './dropdown';
 import '../index.html';
 
@@ -28,14 +28,10 @@ import '../index.html';
 // ReactDOM.render(element, document.querySelector('.container'));
 
 // dropdown
-var options = {
-   title: 'Choose a desert',
-   items: [
-      'Apple Pie',
-      'Peach Cobbler',
-      'Cononut Cream Pie'
-   ]
+const options = {
+  title: 'Choose a desert',
+  items: ['Apple Pie', 'Peach Cobbler', 'Cononut Cream Pie'],
 };
 
-var element = React.createElement(Dropdown, options);
+const element = React.createElement(Dropdown, options);
 ReactDOM.render(element, document.querySelector('.container'));
