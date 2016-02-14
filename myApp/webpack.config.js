@@ -1,6 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var node_modules = path.resolve(__dirname, 'node_modules');
+var pathToReact = path.resolve(node_modules, 'bootstrap-sass/assets/javascripts/bootstrap.min.js');
 
 var config = {
   context: __dirname,
@@ -21,7 +23,8 @@ var config = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015'],
+        loaders: ['react-hot', 
+         'babel?presets[]=react,presets[]=es2015,presets[]=stage-0,plugins[]=transform-runtime'],
         exclude: /node_modules/
       },
       {
@@ -73,7 +76,9 @@ var config = {
      new webpack.ProvidePlugin({
        '$': 'jquery',
        'jQuery': 'jquery'
-    })
+     }),
+     new webpack.HotModuleReplacementPlugin(),
+     new webpack.NoErrorsPlugin()
    //  new webpack.optimize.UglifyJsPlugin({
    //      compress: {
    //          warnings: false
