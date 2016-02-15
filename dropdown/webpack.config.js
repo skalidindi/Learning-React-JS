@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const lintFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-// let nodeModules = path.resolve(__dirname, 'node_modules');
+
 const PATHS = {
   dist: '/dist',
 };
@@ -87,8 +87,8 @@ const config = {
     }),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
     new webpack.NoErrorsPlugin(),
    //  new webpack.optimize.UglifyJsPlugin({

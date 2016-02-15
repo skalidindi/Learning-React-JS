@@ -87,8 +87,8 @@ const config = {
     }),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
     new webpack.NoErrorsPlugin(),
    //  new webpack.optimize.UglifyJsPlugin({
