@@ -1,24 +1,37 @@
 const webpack = require('webpack');
 const lintFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const path = require('path');
 
 const PATHS = {
-  dist: '/dist',
+  src: './src',
+  dist: './dist',
+  mainAppEntry: './src/app.jsx',
 };
+
+const sassLoaderString = 'sass-loader?indentedSyntax=sass&includePaths[]=';
+
+const sassLoaders = [
+  'css-loader',
+  'postcss-loader',
+  sassLoaderString + path.resolve(__dirname, PATHS.src),
+];
 
 const config = {
   context: __dirname,
   target: 'web',
   entry: {
-    app: './src/app.jsx',
+    app: PATHS.mainAppEntry,
     vendors: ['react', 'bootstrap-loader'],
   },
 
   output: {
-    path: __dirname + PATHS.dist,
+    path: path.join(__dirname, PATHS.dist),
     pathInfo: true,
+    publicPath: PATHS.dist,
     filename: '[name].js',
-    css: 'style.css',
   },
 
   module: {
@@ -62,7 +75,8 @@ const config = {
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass',
+        loader: ExtractTextPlugin.extract('style-loader',
+        sassLoaders.join('!')),
       },
       {
         test: require.resolve('jquery'),
@@ -78,9 +92,12 @@ const config = {
     // community formatter
     formatter: lintFormatter,
   },
+  sassLoader: {
+    includePaths: [path.resolve(__dirname, './sass')],
+  },
   cache: true,
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
+    new CleanWebpackPlugin([PATHS.dist], {
       root: __dirname,
       verbose: true,
       dry: false,
@@ -91,14 +108,20 @@ const config = {
       jQuery: 'jquery',
     }),
     new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('styles.css'),
    //  new webpack.optimize.UglifyJsPlugin({
    //      compress: {
    //          warnings: false
    //      },
    //  })
   ],
+  postcss: [
+    autoprefixer({
+      browsers: ['last 2 versions'],
+    }),
+  ],
   resolve: {
-    extensions: ['', '.jsx', '.json', '.js', '.css'],
+    extensions: ['', '.jsx', '.json', '.js', '.css', '.scss'],
   },
 };
 

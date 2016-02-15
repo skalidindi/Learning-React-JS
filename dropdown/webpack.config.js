@@ -1,24 +1,26 @@
 const webpack = require('webpack');
 const lintFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require('path');
 
 const PATHS = {
-  dist: '/dist',
+  src: './src',
+  dist: './dist',
+  mainAppEntry: './src/app.jsx',
 };
 
 const config = {
   context: __dirname,
   target: 'web',
   entry: {
-    app: './src/app.jsx',
+    app: PATHS.mainAppEntry,
     vendors: ['react', 'bootstrap-loader'],
   },
 
   output: {
-    path: __dirname + PATHS.dist,
+    path: path.join(__dirname, PATHS.dist),
     pathInfo: true,
     filename: '[name].js',
-    css: 'style.css',
   },
 
   module: {
@@ -61,10 +63,6 @@ const config = {
         loader: 'file',
       },
       {
-        test: /\.scss$/,
-        loader: 'style!css!sass',
-      },
-      {
         test: require.resolve('jquery'),
         loader: 'expose?$!expose?jQuery!expose?jquery',
       },
@@ -80,7 +78,7 @@ const config = {
   },
   cache: true,
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
+    new CleanWebpackPlugin([PATHS.dist], {
       root: __dirname,
       verbose: true,
       dry: false,
