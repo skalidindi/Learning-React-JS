@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const lintFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 // let nodeModules = path.resolve(__dirname, 'node_modules');
 const PATHS = {
@@ -24,8 +25,8 @@ const config = {
     preLoaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['eslint'],
-        include: './src/app.jsx',
+        loaders: ['eslint-loader'],
+        exclude: /node_modules/,
       },
     ],
     loaders: [
@@ -72,6 +73,10 @@ const config = {
         loader: 'expose?React',
       },
     ],
+  },
+  eslint: {
+    // community formatter
+    formatter: lintFormatter,
   },
   cache: true,
   plugins: [

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Button from './button';
-import ListItem from './list-item'
+import ListItem from './list-item';
 
 class Dropdown extends React.Component {
 
