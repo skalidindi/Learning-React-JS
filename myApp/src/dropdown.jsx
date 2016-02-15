@@ -21,15 +21,26 @@ class Dropdown extends React.Component {
     });
   }
 
+  handleItemClick = (item) => {
+    this.setState({
+      open: false,
+      itemTitle: item,
+    });
+  }
+
   render() {
-    const list = this.props.items.map(
-      (item, i) => <ListItem item={item} key={i}/>);
+    const list = this.props.items.map((item, i) =>
+      <ListItem item={item} key={i}
+        whenItemClicked={this.handleItemClick}
+        className={this.state.itemTitle === item ? 'active' : '' }
+      />
+    );
     const defaultDropmenuClass = 'dropdown-menu ';
 
     return (
       <div className="dropdown">
         <Button whenClicked={this.handleClick}
-          className="btn-default" title={this.props.title}
+          className="btn-default" title={this.state.itemTitle || this.props.title}
           subTitleClassName="caret"
         />
         <ul className={defaultDropmenuClass +
