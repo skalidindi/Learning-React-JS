@@ -30,7 +30,6 @@ const config = {
   output: {
     path: path.join(__dirname, PATHS.dist),
     pathInfo: true,
-    publicPath: PATHS.dist,
     filename: '[name].js',
   },
 
