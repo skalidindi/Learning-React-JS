@@ -8,7 +8,7 @@ class ListItem extends React.Component {
     };
   }
 
-  handleInputChange = null;
+  handleInputChange = (event) => event;
 
   handleCheckboxChange = (event) => {
     this.props.updateTodoDone(this.props.item, event.target.checked);
