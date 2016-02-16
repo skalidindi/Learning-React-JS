@@ -35,7 +35,6 @@ class Dropdown extends React.Component {
         className={this.state.itemTitle === item ? 'active' : '' }
       />
     );
-    const defaultDropmenuClass = 'dropdown-menu ';
 
     return (
       <div className="dropdown">
@@ -43,9 +42,8 @@ class Dropdown extends React.Component {
           className="btn-default" title={this.state.itemTitle || this.props.title}
           subTitleClassName="caret"
         />
-        <ul className={defaultDropmenuClass +
-          (this.state.open ? 'show' : '')}
-        > {list}
+        <ul className={`dropdown-menu ${(this.state.open ? 'show' : '')}`}>
+          {list}
         </ul>
       </div>
     );

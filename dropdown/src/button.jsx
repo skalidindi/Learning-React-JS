@@ -6,10 +6,8 @@ import React from 'react';
 class Button extends React.Component {
 
   render() {
-    const defaultBtnClass = 'btn ';
-
     return (<button onClick={this.props.whenClicked}
-      className={defaultBtnClass + this.props.className} type="button"
+      className={`btn ${this.props.className}`} type="button"
     >
       {this.props.title}
       <span className={this.props.subTitleClassName}>
