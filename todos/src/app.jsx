@@ -42,10 +42,10 @@ class App extends React.Component {
     });
   }
 
-  updateTodoToStore = (todo, checked) => {
+  updateTodoDone = (todo, checked) => {
     const updatedTodos = this.state.todos;
-
     const index = updatedTodos.indexOf(todo);
+
     if (index !== -1) {
       const newTodo = todo;
       newTodo.done = checked;
@@ -58,7 +58,6 @@ class App extends React.Component {
 
    render() {
      const todos = this.state.todos;
-
      return (<div className="row panel panel-default">
       <div className="col-md-8 col-md-offset-2">
         <h2 className="text-center">
@@ -69,7 +68,7 @@ class App extends React.Component {
           className={`"content" ${(todos.length ? 'loaded' : '')}`}
         >
           <List items={this.state.todos}
-            updateTodoToStore={this.updateTodoToStore}
+            updateTodoDone={this.updateTodoDone}
           />
         </div>
       </div>

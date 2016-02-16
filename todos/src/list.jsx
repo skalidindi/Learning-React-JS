@@ -8,7 +8,7 @@ class List extends React.Component {
   }
 
   renderList() {
-    if (this.props.items && Object.keys(this.props.items).length === 0) {
+    if (this.props.items && this.props.items.length === 0) {
       return (<h4>
         Add a todo to get started.
       </h4>);
@@ -20,7 +20,7 @@ class List extends React.Component {
       (item, i) => {
         children.push(
           <ListItem key={i} item={item}
-            updateTodoToStore={this.props.updateTodoToStore}
+            updateTodoDone={this.props.updateTodoDone}
           >
             {item.text}
           </ListItem>
@@ -39,6 +39,6 @@ class List extends React.Component {
 }
 
 List.propTypes = { items: React.PropTypes.array,
-  updateTodoToStore: React.PropTypes.func };
+  updateTodoDone: React.PropTypes.func };
 
 export default List;

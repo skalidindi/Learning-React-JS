@@ -8,22 +8,16 @@ class ListItem extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  // }
-  handleInputChange = (event) => {
-    console.log(event.target);
-  }
+  handleInputChange = null;
 
   handleCheckboxChange = (event) => {
-    // const todo = this.props.item;
-    // todo.done = event.target.value;
-    this.props.updateTodoToStore(this.props.item, event.target.checked);
+    this.props.updateTodoDone(this.props.item, event.target.checked);
   }
 
   render() {
     return (<div className="input-group">
       <span className="input-group-addon">
-        <input type="checkbox" onChange={this.handleCheckboxChange}/>
+        <input type="checkbox" onChange={this.handleCheckboxChange} checked={this.props.item.done}/>
       </span>
       <input type="text" className="form-control"
         value={this.state.text}
@@ -39,6 +33,6 @@ class ListItem extends React.Component {
 }
 
 ListItem.propTypes = { item: React.PropTypes.object,
-  updateTodoToStore: React.PropTypes.func };
+  updateTodoDone: React.PropTypes.func };
 
 export default ListItem;
