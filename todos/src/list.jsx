@@ -13,14 +13,15 @@ class List extends React.Component {
         Add a todo to get started.
       </h4>);
     }
-    // else
-    const children = [];
 
+    const children = [];
     this.props.items.map(
-      (item, i) => {
+      (item) => {
         children.push(
-          <ListItem key={i} item={item}
+          <ListItem key={item.key} item={item}
             updateTodoDone={this.props.updateTodoDone}
+            updateTodoText={this.props.updateTodoText}
+            deleteTodo={this.props.deleteTodo}
           >
             {item.text}
           </ListItem>
@@ -31,14 +32,16 @@ class List extends React.Component {
   }
 
   render() {
-    return (<ul>
+    return (<div>
       {this.renderList()}
-    </ul>
+    </div>
   );
   }
 }
 
 List.propTypes = { items: React.PropTypes.array,
-  updateTodoDone: React.PropTypes.func };
+  updateTodoDone: React.PropTypes.func,
+  updateTodoText: React.PropTypes.func,
+  deleteTodo: React.PropTypes.func };
 
 export default List;

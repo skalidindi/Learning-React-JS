@@ -10,3 +10,12 @@
 
 .input-group
   margin-bottom: 15px;
+
+// Dunno why but in my version of bootstrap sass the button component is
+// 1px smaller than the input box so made btn from 33px -> 34px so height
+// matches
+.btn
+  height: 34px;
+
+.clear-complete
+  margin-bottom: 15px;

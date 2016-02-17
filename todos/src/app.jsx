@@ -18,8 +18,8 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
-    base.syncState(`todos`, {
+  componentDidMount() {
+    this.ref = base.syncState(`todos`, {
       context: this,
       state: 'todos',
       asArray: true,
@@ -28,6 +28,14 @@ class App extends React.Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  onDeleteDoneClick = () => {
+    const updatedTodos =
+      this.state.todos.filter((todo) => !todo.done ? todo : null);
+    this.setState({
+      todos: updatedTodos,
+    });
   }
 
   addTodoToStore = (todo) => {
@@ -56,24 +64,66 @@ class App extends React.Component {
     }
   }
 
-   render() {
-     const todos = this.state.todos;
-     return (<div className="row panel panel-default">
-      <div className="col-md-8 col-md-offset-2">
-        <h2 className="text-center">
-          To-Do List
-        </h2>
-        <Header addTodo={this.addTodoToStore} />
-        <div
-          className={`"content" ${(todos.length ? 'loaded' : '')}`}
-        >
-          <List items={this.state.todos}
-            updateTodoDone={this.updateTodoDone}
-          />
-        </div>
+  updateTodoText = (todo, text) => {
+    const updatedTodos = this.state.todos;
+    const index = updatedTodos.indexOf(todo);
+
+    if (index !== -1) {
+      const newTodo = todo;
+      newTodo.text = text;
+      updatedTodos[index] = newTodo;
+      this.setState({
+        todos: updatedTodos,
+      });
+    }
+  }
+
+  deleteTodo = (todo) => {
+    const updatedTodos =
+      this.state.todos.map((item) => item.key !== todo.key ? item : null);
+    this.setState({
+      todos: updatedTodos,
+    });
+  }
+
+  deleteButton() {
+    if (this.state.todos.length === 0) {
+      return null;
+    }
+    return (<div className="text-center clear-complete">
+      <hr />
+      <button
+        type="button"
+        onClick={this.onDeleteDoneClick}
+        className="btn btn-default"
+      >
+        Clear Complete
+      </button>
+    </div>);
+  }
+
+  render() {
+    const todos = this.state.todos;
+    return (<div className="row panel panel-default">
+    <div className="col-md-8 col-md-offset-2">
+      <h2 className="text-center">
+        To-Do List
+      </h2>
+      <Header addTodo={this.addTodoToStore} />
+      <hr />
+      <div
+        className={`"content" ${(todos.length ? 'loaded' : '')}`}
+      >
+        <List items={this.state.todos}
+          updateTodoDone={this.updateTodoDone}
+          updateTodoText={this.updateTodoText}
+          deleteTodo={this.deleteTodo}
+        />
+      {this.deleteButton()}
       </div>
-     </div>);
-   }
+    </div>
+    </div>);
+  }
 }
 
 const element = React.createElement(App, {});

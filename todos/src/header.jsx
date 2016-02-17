@@ -14,6 +14,7 @@ class Header extends React.Component {
       done: false,
     };
     this.props.addTodo(item);
+    this.setState({ text: '' });
   }
 
   handleInputChange = (event) => {
