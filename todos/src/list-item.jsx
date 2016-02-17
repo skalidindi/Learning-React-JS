@@ -52,7 +52,6 @@ class ListItem extends React.Component {
   }
 
   render() {
-    // console.log(this.props.item);
     return (<div className="input-group">
       <span className="input-group-addon">
         <input type="checkbox" onChange={this.handleCheckboxChange}
