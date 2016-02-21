@@ -1,7 +1,7 @@
 {
-  "name": "imgurClient",
+  "name": "imgur-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "Client for showing imgur images by category",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --inline --devtool eval --progress --colors --content-base build",
@@ -14,11 +14,12 @@
     "babel-polyfill": "^6.5.0",
     "babel-runtime": "^6.5.0",
     "bootstrap-sass": "^3.3.6",
-    "fetch": "^1.0.1",
     "jquery": "^2.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-router": "^2.0.0",
+    "reflux": "^0.3.0",
+    "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
