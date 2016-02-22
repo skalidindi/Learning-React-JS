@@ -1,14 +1,13 @@
+const path = require('path');
 const webpack = require('webpack');
-const lintFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const path = require('path');
 
 const PATHS = {
   src: './src',
   dist: './dist',
-  mainAppEntry: './src/app.jsx',
+  mainAppEntry: './src/index',
 };
 
 const sassLoaderString = 'sass-loader?indentedSyntax=sass&includePaths[]=';
@@ -20,33 +19,40 @@ const sassLoaders = [
 ];
 
 const config = {
-  context: __dirname,
-  target: 'web',
-  entry: {
-    app: PATHS.mainAppEntry,
-    vendors: ['react', 'bootstrap-loader'],
-  },
-
+  devtool: 'cheap-module-eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client',
+    'bootstrap-loader',
+    PATHS.mainAppEntry,
+  ],
   output: {
     path: path.join(__dirname, PATHS.dist),
-    pathInfo: true,
-    filename: '[name].js',
+    filename: 'bundle.js',
+    publicPath: '/static/',
   },
-
+  plugins: [
+    new CleanWebpackPlugin([PATHS.dist], {
+      root: __dirname,
+      verbose: true,
+      dry: false,
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+    new ExtractTextPlugin('styles.css'),
+  ],
   module: {
-    preLoaders: [
-      // {
-      //   test: /\.jsx?$/,
-      //   loaders: ['eslint-loader'],
-      //   exclude: /node_modules/,
-      // },
-    ],
     loaders: [
       {
         test: /\.jsx?$/,
         loaders: ['react-hot',
          'babel?presets[]=react,presets[]=es2015,presets[]=stage-0,plugins[]=transform-runtime'],
         exclude: /node_modules/,
+        include: __dirname,
       },
       {
         test: /\.html$/,
@@ -87,33 +93,9 @@ const config = {
       },
     ],
   },
-  eslint: {
-    // community formatter
-    formatter: lintFormatter,
-  },
   sassLoader: {
     includePaths: [path.resolve(__dirname, './sass')],
   },
-  cache: true,
-  plugins: [
-    new CleanWebpackPlugin([PATHS.dist], {
-      root: __dirname,
-      verbose: true,
-      dry: false,
-    }),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('styles.css'),
-   //  new webpack.optimize.UglifyJsPlugin({
-   //      compress: {
-   //          warnings: false
-   //      },
-   //  })
-  ],
   postcss: [
     autoprefixer({
       browsers: ['last 2 versions'],

@@ -1,29 +1,24 @@
 const initialState = {
   loading: false,
   loaded: false,
-  topics: [],
+  data: [],
 };
 
 export default function reducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
-    case 'GET_TOPICS':
+    // case INVALIDATE_REDDIT:
+    case 'REQUEST_TOPICS':
       return {
         ...state,
         loading: true,
       };
-    case 'RECEIVE_TOPICS_SUCCESS':
+    case 'RECEIVE_TOPICS':
       return {
         ...state,
         loading: false,
         loaded: true,
         lastUpdated: action.receivedAt,
-        topics: action.data,
-      };
-    case 'RECEIVE_TOPICS_FAILURE':
-      return {
-        ...state,
-        success: false,
+        data: action.data,
       };
     default:
       return state;
