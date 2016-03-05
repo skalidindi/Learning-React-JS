@@ -1,8 +1,9 @@
-const path = require('path');
 const webpack = require('webpack');
+const lintFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const path = require('path');
 
 const PATHS = {
   src: './src',
@@ -21,14 +22,13 @@ const sassLoaders = [
 const config = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
     'bootstrap-loader',
     PATHS.mainAppEntry,
   ],
   output: {
     path: path.join(__dirname, PATHS.dist),
+    pathInfo: true,
     filename: 'bundle.js',
-    publicPath: '/static/',
   },
   plugins: [
     new CleanWebpackPlugin([PATHS.dist], {
@@ -46,6 +46,13 @@ const config = {
     new ExtractTextPlugin('styles.css'),
   ],
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['eslint-loader'],
+        exclude: /node_modules/,
+      },
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
@@ -92,6 +99,10 @@ const config = {
         loader: 'expose?React',
       },
     ],
+  },
+  eslint: {
+    // community formatter
+    formatter: lintFormatter,
   },
   sassLoader: {
     includePaths: [path.resolve(__dirname, './sass')],
