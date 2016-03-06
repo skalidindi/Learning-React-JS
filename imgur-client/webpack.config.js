@@ -56,8 +56,10 @@ const config = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot',
-         'babel?presets[]=react,presets[]=es2015,presets[]=stage-0,plugins[]=transform-runtime'],
+        loaders:
+          [
+            'babel?presets[]=react,presets[]=es2015,presets[]=stage-0' +
+            ',presets[]=react-hmre,plugins[]=transform-runtime'],
         exclude: /node_modules/,
         include: __dirname,
       },
