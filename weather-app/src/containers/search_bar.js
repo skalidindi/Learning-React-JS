@@ -5,11 +5,10 @@ import { fetchWeather } from '../actions/index';
 
 class SearchBar extends Component {
 
-  // es7 style
-  // static propTypes = {
-  //       term: React.PropTypes.string,
-  //       fetchWeather: React.PropTypes.func.isRequired,
-  // };
+  static propTypes = {
+    fetchWeather: React.PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -46,8 +45,6 @@ class SearchBar extends Component {
     );
   }
 }
-
-SearchBar.propTypes = { fetchWeather: React.PropTypes.func };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchWeather }, dispatch);
 

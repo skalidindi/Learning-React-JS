@@ -1,14 +1,14 @@
 import React from 'react';
-import { default as ScriptjsLoader } from 'react-google-maps/lib/async/ScriptjsLoader';
+import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
 import { GoogleMap } from 'react-google-maps';
-import { default as FaSpinner } from 'react-icons/lib/fa/spinner';
+import FaSpinner from 'react-icons/lib/fa/spinner';
 import { GOOGLE_MAPS_API_KEY } from '../api_keys';
 
 const GoogleMapCell = (props) => (
   <ScriptjsLoader
     hostname={'maps.googleapis.com'}
     pathname={'/maps/api/js'}
-    query={ { v: '3', libraries: 'geometry,drawing,places', key: GOOGLE_MAPS_API_KEY } }
+    query={ { v: '3', key: GOOGLE_MAPS_API_KEY } }
     loadingElement={
       <div>
         <FaSpinner />
@@ -23,6 +23,7 @@ const GoogleMapCell = (props) => (
   />
 );
 
+// es6 style
 GoogleMapCell.propTypes = {
   lat: React.PropTypes.number,
   lng: React.PropTypes.number,

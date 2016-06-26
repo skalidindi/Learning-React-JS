@@ -4,6 +4,11 @@ import Chart from '../components/chart';
 import GoogleMap from '../components/google_map';
 
 class WeatherList extends Component {
+
+  static propTypes = {
+    weather: React.PropTypes.array,
+  };
+
   renderWeather(cityData) {
     const id = cityData.city.id;
     const name = cityData.city.name;
@@ -42,8 +47,6 @@ class WeatherList extends Component {
     );
   }
 }
-
-WeatherList.propTypes = { weather: React.PropTypes.array };
 
 const mapStateToProps = ({ weather }) => ({ weather });
 
