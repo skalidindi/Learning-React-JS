@@ -1,7 +1,7 @@
 {
-  "name": "forcast-app",
+  "name": "weather-app",
   "version": "1.0.0",
-  "description": "Simple forcast application",
+  "description": "Simple weather application",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --devtool eval --progress --colors",
